@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#4285f4">
+    <title>AI Training Tracker</title>
+    <link rel="manifest" href="manifest.json">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+        
+        h1 {
+            color: #667eea;
+            margin-bottom: 10px;
+            font-size: 28px;
+        }
+        
+        .progress-bar {
+            width: 100%;
+            height: 30px;
+            background: #e0e0e0;
+            border-radius: 15px;
+            overflow: hidden;
+            margin: 20px 0;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+            transition: width 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+        }
+        
+        .week {
+            margin: 30px 0;
+            border-left: 4px solid #667eea;
+            padding-left: 20px;
+        }
+        
+        .week h2 {
+            color: #333;
+            font-size: 22px;
+            margin-bottom: 15px;
+        }
+        
+        .day {
+            background: #f8f9fa;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+        }
+        
+        .day:hover {
+            background: #e9ecef;
+            transform: translateX(5px);
+        }
+        
+        .day.completed {
+            background: #d4edda;
+            border-left: 4px solid #28a745;
+        }
+        
+        .day-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 10px;
+        }
+        
+        input[type="checkbox"] {
+            width: 24px;
+            height: 24px;
+            cursor: pointer;
+        }
+        
+        .day-title {
+            font-weight: bold;
+            color: #333;
+            flex: 1;
+        }
+        
+        .day-content {
+            margin-left: 39px;
+            color: #666;
+            line-height: 1.6;
+        }
+        
+        .link {
+            display: inline-block;
+            color: #667eea;
+            text-decoration: none;
+            margin-top: 10px;
+            padding: 8px 15px;
+            background: #f0f3ff;
+            border-radius: 5px;
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+        
+        .link:hover {
+            background: #667eea;
+            color: white;
+        }
+        
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin: 20px 0;
+        }
+        
+        .stat {
+            text-align: center;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 10px;
+        }
+        
+        .stat-number {
+            font-size: 24px;
+            font-weight: bold;
+            color: #667eea;
+        }
+        
+        .stat-label {
+            font-size: 12px;
+            color: #666;
+            margin-top: 5px;
+        }
+        
+        .reset-btn {
+            width: 100%;
+            padding: 15px;
+            background: #dc3545;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+        
+        .reset-btn:hover {
+            background: #c82333;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🚀 AI Training Tracker</h1>
+        <p style="color: #666; margin-bottom: 20px;">Your 6-Week Journey to AI Mastery</p>
+        
+        <div class="stats">
+            <div class="stat">
+                <div class="stat-number" id="completedDays">0</div>
+                <div class="stat-label">Days Done</div>
+            </div>
+            <div class="stat">
+                <div class="stat-number" id="totalDays">42</div>
+                <div class="stat-label">Total Days</div>
+            </div>
+            <div class="stat">
+                <div class="stat-number" id="percentComplete">0%</div>
+                <div class="stat-label">Complete</div>
+            </div>
+        </div>
+        
+        <div class="progress-bar">
+            <div class="progress-fill" id="progressFill" style="width: 0%">0%</div>
+        </div>
+        
+        <!-- WEEK 1 -->
+        <div class="week">
+            <h2>Week 1: Foundations & Computer Fluency</h2>
+            
+            <div class="day" data-day="1">
+                <div class="day-header">
+                    <input type="checkbox" class="day-checkbox">
+                    <div class="day-title">Day 1: Monday</div>
+                </div>
+                <div class="day-content">
+                    Complete "Is That AI?" via Senior Planet from AARP
+                    <a href="https://seniorplanet.org/learn-more-about-ai/" target="_blank" class="link">→ Start Course</a>
+                </div>
+            </div>
+            
+            <div class="day" data-day="2">
+                <div class="day-header">
+                    <input type="checkbox" class="day-checkbox">
+                    <div class="day-title">Day 2: Tuesday</div>
+                </div>
+                <div class="day-content">
+                    Start "Introduction to Generative AI" by Google Skills (1 hour)
+                    <a href="https://www.cloudskillsboost.google/course_templates/536" target="_blank" class="link">→ Start Course</a>
+                </div>
+            </div>
+            
+            <div class="day" data-day="3">
+                <div class="day-header">
+                    <input type="checkbox" class="day-checkbox">
+                    <div class="day-title">Day 3-5: Wed-Fri</div>
+                </div>
+                <div class="day-content">
+                    Begin "Generative AI for Everyone" by Andrew Ng (6 hours total over 3 days)
+                    <a href="https://www.coursera.org/learn/generative-ai-for-everyone" target="_blank" class="link">→ Start Course (Audit for Free)</a>
+                </div>
+            </div>
+        </div>
+        
+        <!-- WEEK 2 -->
+        <div class="week">
+            <h2>Week 2: Practical Productivity</h2>
+            
+            <div class="day" data-day="4">
+                <div class="day-header">
+                    <input type="checkbox" class="day-checkbox">
+                    <div class="day-title">Day 6-7: Mon-Tue</div>
+                </div>
+                <div class="day-content">
+                    Enroll in "Google AI Essentials" (7-day free trial or apply for financial aid)
+                    <a href="https://grow.google/ai-essentials/" target="_blank" class="link">→ Enroll Now</a>
+                </div>
+            </div>
+            
+            <div class="day" data-day="5">
+                <div class="day-header">
+                    <input type="checkbox" class="day-checkbox">
+                    <div class="day-title">Day 8-10: Wed-Fri</div>
+                </div>
+                <div class="day-content">
+                    Complete Modules 1 & 2: "Introduction to AI" and "Maximize Productivity"
+                    <a href="https://grow.google/ai-essentials/" target="_blank" class="link">→ Continue Course</a>
+                </div>
+            </div>
+        </div>
+        
+        <!-- WEEK 3 -->
+        <div class="week">
+            <h2>Week 3: Mastering the "Art of Prompting"</h2>
+            
+            <div class="day" data-day="6">
+                <div class="day-header">
+                    <input type="checkbox" class="day-checkbox">
+                    <div class="day-title">Day 11-12: Mon-Tue</div>
+                </div>
+                <div class="day-content">
+                    Complete Module 3: "Discover the Art of Prompting"
+                    <a href="https://grow.google/ai-essentials/" target="_blank" class="link">→ Continue Course</a>
+                </div>
+            </div>
+            
+            <div class="day" data-day="7">
+                <div class="day-header">
+                    <input type="checkbox" class="day-checkbox">
+                    <div class="day-title">Day 13-15: Wed-Fri</div>
+                </div>
+                <div class="day-content">
+                    Practice with "Google Prompting Essentials" - business prompts, emails, data analysis
+                    <a href="https://grow.google/ai-essentials/" target="_blank" class="link">→ Practice Prompting</a>
+                </div>
+            </div>
+        </div>
+        
+        <!-- WEEK 4 -->
+        <div class="week">
+            <h2>Week 4: Creative & Visual AI Services</h2>
+            
+            <div class="day" data-day="8">
+                <div class="day-header">
+                    <input type="checkbox" class="day-checkbox">
+                    <div class="day-title">Day 16-18: Mon-Wed</div>
+                </div>
+                <div class="day-content">
+                    Use Canva's Design School to learn "Magic Studio" AI tools
+                    <a href="https://www.canva.com/designschool/" target="_blank" class="link">→ Start Learning</a>
+                </div>
+            </div>
+            
+            <div class="day" data-day="9">
+                <div class="day-header">
+                    <input type="checkbox" class="day-checkbox">
+                    <div class="day-title">Day 19-20: Thu-Fri</div>
+                </div>
+                <div class="day-content">
+                    Explore video generation with Invideo AI tutorials
+                    <a href="https://invideo.io/ai/" target="_blank" class="link">→ Watch Tutorials</a>
+                </div>
+            </div>
+        </div>
+        
+        <!-- WEEK 5 -->
+        <div class="week">
+            <h2>Week 5: AI Ethics & Responsible Use</h2>
+            
+            <div class="day" data-day="10">
+                <div class="day-header">
+                    <input type="checkbox" class="day-checkbox">
+                    <div class="day-title">Day 21-22: Mon-Tue</div>
+                </div>
+                <div class="day-content">
+                    Complete "Use AI Responsibly" module - learn about bias and inaccuracies
+                    <a href="https://grow.google/ai-essentials/" target="_blank" class="link">→ Start Module</a>
+                </div>
+            </div>
+            
+            <div class="day" data-day="11">
+                <div class="day-header">
+                    <input type="checkbox" class="day-checkbox">
+                    <div class="day-title">Day 23-25: Wed-Fri</div>
+                </div>
+                <div class="day-content">
+                    Take "Elements of AI" (Part 1) - ethics and societal impact
+                    <a href="https://www.elementsofai.com/" target="_blank" class="link">→ Start Course</a>
+                </div>
+            </div>
+        </div>
+        
+        <!-- WEEK 6 -->
+        <div class="week">
+            <h2>Week 6: Launching Your Business</h2>
+            
+            <div class="day" data-day="12">
+                <div class="day-header">
+                    <input type="checkbox" class="day-checkbox">
+                    <div class="day-title">Day 26: Monday</div>
+                </div>
+                <div class="day-content">
+                    Review career resources from Robert H. Smith School of Business
+                    <a href="https://www.rhsmith.umd.edu/career" target="_blank" class="link">→ View Resources</a>
+                </div>
+            </div>
+            
+            <div class="day" data-day="13">
+                <div class="day-header">
+                    <input type="checkbox" class="day-checkbox">
+                    <div class="day-title">Day 27-28: Tue-Wed</div>
+                </div>
+                <div class="day-content">
+                    Create profiles on Upwork and Fiverr highlighting your AI skills
+                    <a href="https://www.upwork.com/" target="_blank" class="link">→ Upwork</a>
+                    <a href="https://www.fiverr.com/" target="_blank" class="link">→ Fiverr</a>
+                </div>
+            </div>
+            
+            <div class="day" data-day="14">
+                <div class="day-header">
+                    <input type="checkbox" class="day-checkbox">
+                    <div class="day-title">Day 29-30: Thu-Fri</div>
+                </div>
+                <div class="day-content">
+                    Reach out to local businesses - offer to help with one free task for a testimonial
+                </div>
+            </div>
+        </div>
+        
+        <button class="reset-btn" onclick="resetProgress()">Reset All Progress</button>
+    </div>
+    
+    <script>
+        // Load saved progress
+        function loadProgress() {
+            const checkboxes = document.querySelectorAll('.day-checkbox');
+            checkboxes.forEach((checkbox, index) => {
+                const saved = localStorage.getItem(`day-${index}`);
+                if (saved === 'true') {
+                    checkbox.checked = true;
+                    checkbox.closest('.day').classList.add('completed');
+                }
+            });
+            updateStats();
+        }
+        
+        // Save progress when checkbox changes
+        document.querySelectorAll('.day-checkbox').forEach((checkbox, index) => {
+            checkbox.addEventListener('change', function() {
+                localStorage.setItem(`day-${index}`, this.checked);
+                if (this.checked) {
+                    this.closest('.day').classList.add('completed');
+                } else {
+                    this.closest('.day').classList.remove('completed');
+                }
+                updateStats();
+            });
+        });
+        
+        // Update statistics
+        function updateStats() {
+            const total = document.querySelectorAll('.day-checkbox').length;
+            const completed = document.querySelectorAll('.day-checkbox:checked').length;
+            const percent = Math.round((completed / total) * 100);
+            
+            document.getElementById('completedDays').textContent = completed;
+            document.getElementById('totalDays').textContent = total;
+            document.getElementById('percentComplete').textContent = percent + '%';
+            document.getElementById('progressFill').style.width = percent + '%';
+            document.getElementById('progressFill').textContent = percent + '%';
+        }
+        
+        // Reset all progress
+        function resetProgress() {
+            if (confirm('Are you sure you want to reset all progress? This cannot be undone.')) {
+                localStorage.clear();
+                location.reload();
+            }
+        }
+        
+        // Load progress on page load
+        loadProgress();
+        
+        // Register service worker for offline support
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('sw.js');
+        }
+    </script>
+</body>
+</html>
